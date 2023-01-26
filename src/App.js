@@ -1,8 +1,10 @@
 import * as React from "react";
 import axios from "axios";
 
-function createMerchantCode(amount) {
-  // GET http://localhost:8080/payment/create?amount=금액입력
+async function createMerchantCode(amount) {
+  fetch(`http://localhost:8080/payment/create?amount=${amount}`, {
+    method: "GET",
+  });
 }
 
 function requestPay() {
@@ -46,7 +48,14 @@ function callback(rsp) {
 function App() {
   return (
     <div className="App">
-      <button onClick={() => requestPay()}>결제하기</button>
+      <button
+        onClick={() => {
+          createMerchantCode(10000);
+          requestPay();
+        }}
+      >
+        결제하기
+      </button>
     </div>
   );
 }
